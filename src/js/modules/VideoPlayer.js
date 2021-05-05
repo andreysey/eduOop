@@ -5,10 +5,20 @@ export default class VideoPlayer {
         this.close = this.overlay.querySelector('.close');
     }
 
+    createPlayer(url) {
+        this.player = new YT.Player('frame', {
+            height: '100%',
+            width: '100%',
+            videoId: `${url}`
+        });
+
+        this.overlay.style.display = 'flex';
+    }
+
     bindTriggers() {
         this.btns.forEach(btn => {
             btn.addEventListener('click', () => {
-                if (document.querySelector('iframe#iframe')) {
+                if (document.querySelector('iframe#frame')) {
                     this.overlay.style.display = 'flex';
                 } else {
                     const path = btn.getAttribute('data-url');
@@ -23,16 +33,6 @@ export default class VideoPlayer {
             this.overlay.style.display = 'none';
             this.player.stopVideo();
         });
-    }
-
-    createPlayer(url) {
-        this.player = new YT.Player('frame', {
-            height: '100%',
-            width: '100%',
-            videoId: `${url}`
-        });
-
-        this.overlay.style.display = 'flex';
     }
 
     init() {
